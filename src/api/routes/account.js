@@ -4,15 +4,17 @@ const router = express.Router()
 const AccountAction = require('../controllers/account')
 const { checkAuth } = require('../../middlewares')
 
-// List accounts of authenticated user
-router.get('/', checkAuth,  AccountAction.getEntry)
 // List all accounts
-router.get('/all', checkAuth,  AccountAction.getAllEntries)
+router.get('/', checkAuth,  AccountAction.getAllAccounts)
+// Get account by account id
+router.get('/:id', checkAuth,  AccountAction.getAccount)
+// Get accounts by user id
+router.get('/user/:user_id', checkAuth,  AccountAction.getAccountsByUserId)
 // Add account
-router.post('/add', checkAuth,  AccountAction.addEntry)
+router.post('/add', checkAuth,  AccountAction.addAccount)
 // Update account
-router.patch('/update/{id}', checkAuth,  AccountAction.updateEntry)
+router.patch('/update/:id', checkAuth,  AccountAction.updateAccount)
 // Delete account
-router.delete('/delete/{id}', checkAuth,  AccountAction.deleteEntry)
+router.delete('/delete/:id', checkAuth,  AccountAction.deleteAccount)
 
 module.exports = router

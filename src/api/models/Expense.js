@@ -9,7 +9,7 @@ const ExpenseSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, ref: 'Account'
   },
   user: {
-
+    type: mongoose.Schema.Types.ObjectId, ref: 'User'
   },
   details: { type: String, required: true },
   amount: { type: Number , required: true}

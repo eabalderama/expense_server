@@ -4,16 +4,28 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 module.exports = {
-  getAllUsers: (req, res) => {
-    res.json({
-      message: 'API - 👋🌎🌍🌏'
-    });
+  getAllUsers: async (req, res) => {
+    const users = await User.find().select('_id email firstname lastname createdAt updatedAt')
+    if(users.length > 0){
+      res.json({
+        status: true,
+        message: 'Successfully fetched users',
+        data: users
+      })
+    }else{
+      res.json({
+        status: false,
+        message: 'No users found'
+      });
+    }
+    
   },
   signup: async (req, res) => {
     const {email, password, firstname, lastname } = req.body
     const checkEmail = await User.findOne({email: email})
     if(checkEmail) {
-      res.status(409).json({
+      res.json({
+        status: false,
         message: 'Email already exists'
       })
     }else{
@@ -34,7 +46,8 @@ module.exports = {
           try{
             const savedUser = await user.save();
             if(savedUser){
-              res.status(200).json({
+              res.json({
+                status: true,
                 message: "User created",
                 data: {
                   email,
@@ -46,6 +59,7 @@ module.exports = {
             
           }catch(error){
             res.status(500).json({
+              status: false,
               error
             })
           }
@@ -61,18 +75,28 @@ module.exports = {
         const checkPassword = await bcrypt.compare(password, user.password)
         if(checkPassword){
           const token = jwt.sign({email: user.email, user_id: user._id}, process.env.JWT_KEY, {expiresIn: '1h'})
-          res.status(200).json({
+          res.json({
+            status: true,
             message: 'Login success',
             token:token
           })
         }else{
-          res.status(401).json({message: 'Credentials does not match'});
+          res.json({
+            status:false,
+            message: 'Credentials does not match'
+          });
         }
       }else{
-        res.status(401).json({message: 'Credentials does not match'});
+        res.json({
+          status:false, 
+          message: 'Credentials does not match'
+        });
       }
     }catch(error){
-      req.status(500).json({error})
+      req.json({
+        status:false,
+        error
+      })
     }
   }
 }
