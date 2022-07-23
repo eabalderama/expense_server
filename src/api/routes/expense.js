@@ -15,10 +15,10 @@ router.get('/account/:account_id', checkAuth, ExpenseAction.getExpenseByAccountI
 // List expense by category_id
 router.get('/category/:category_id', checkAuth, ExpenseAction.getExpenseByCategoryId)
 // Add expense
-router.post('/add', checkAuth,  ExpenseAction.addExpense)
+router.post('/', checkAuth,  ExpenseAction.addExpense)
 // Update expense
-router.patch('/update/:id', checkAuth,  ExpenseAction.updateEntry)
+router.patch('/:id', checkAuth,  ExpenseAction.updateEntry)
 // Delete expense
-router.delete('/delete/:id', checkAuth,  ExpenseAction.deleteEntry)
+router.delete('/:id', checkAuth,  ExpenseAction.deleteEntry)
 
 module.exports = router

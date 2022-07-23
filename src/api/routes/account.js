@@ -11,10 +11,10 @@ router.get('/:id', checkAuth,  AccountAction.getAccount)
 // Get accounts by user id
 router.get('/user/:user_id', checkAuth,  AccountAction.getAccountsByUserId)
 // Add account
-router.post('/add', checkAuth,  AccountAction.addAccount)
+router.post('/', checkAuth,  AccountAction.addAccount)
 // Update account
-router.patch('/update/:id', checkAuth,  AccountAction.updateAccount)
+router.patch('/:id', checkAuth,  AccountAction.updateAccount)
 // Delete account
-router.delete('/delete/:id', checkAuth,  AccountAction.deleteAccount)
+router.delete('/:id', checkAuth,  AccountAction.deleteAccount)
 
 module.exports = router

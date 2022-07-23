@@ -9,10 +9,10 @@ router.get('/', checkAuth,  CategoryAction.getAllCategory)
 // Get category by id
 router.get('/:category_id', checkAuth,  CategoryAction.getCategoryById)
 // Add category
-router.post('/add', checkAuth,  CategoryAction.addCategory)
+router.post('/', checkAuth,  CategoryAction.addCategory)
 // Update category
-router.patch('/update/:id', checkAuth,  CategoryAction.updateCategory)
+router.patch('/:id', checkAuth,  CategoryAction.updateCategory)
 // Delete category
-router.delete('/delete/:id', checkAuth,  CategoryAction.deleteCategory)
+router.delete('/:id', checkAuth,  CategoryAction.deleteCategory)
 
 module.exports = router
